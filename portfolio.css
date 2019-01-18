@@ -1,0 +1,128 @@
+a
+{
+    text-decoration: dotted underline;
+}
+
+a:hover
+{
+    text-decoration: underline;
+    color: crimson;
+}
+
+a:visited
+{
+    color: white;
+}
+
+article
+{
+    flex: 4;
+}
+
+aside
+{
+    flex: 1;
+    border-right: 1px solid white;
+    margin-right: 16px;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Condensed", ubuntu, sans-serif;
+    background-color: #4a4a4a;
+    color: white;
+}
+
+li
+{
+    padding: 8px 0;
+}
+
+nav
+{
+    margin: 0;
+}
+
+nav ul
+{
+    float: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    display: flex;
+    flex-flow: row;
+}
+
+nav li
+{
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+nav li a
+{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav a:visited
+{
+    color: white;
+}
+
+nav a:hover
+{
+    background-color: #8c2c3f;
+    text-decoration: none;
+}
+
+nav .active
+{
+    background-color: crimson;
+}
+
+section
+{
+    display: flex;
+}
+
+ul
+{
+    float: left;
+    list-style-type: none;
+    padding: 0;
+}
+
+#content
+{
+    padding: 16px;
+}
+
+#content li:not(:last-child)
+{
+    border-bottom: 1px solid #aaa;
+}
+
+.headshot
+{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-right: 8px;
+}
+
+.headshot img
+{
+    border: 1px solid white;
+    border-radius: 16px;
+    padding: 0;
+}
