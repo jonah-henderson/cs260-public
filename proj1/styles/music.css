@@ -36,6 +36,11 @@
     font-size: x-large;
 }
 
+#music-content > p
+{
+    padding: 0 8px;
+}
+
 .music-card
 {
     height: 256px;
