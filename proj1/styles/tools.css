@@ -1,0 +1,54 @@
+#tools-wrapper
+{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    align-content: center;
+    margin: 16px;
+}
+
+dl
+{
+    margin-left: 32px;
+    border-left: 1px solid #403f4c;
+    flex: 0 1 auto;
+    max-width: 900px;
+    padding: 32px;
+}
+
+#tools-wrapper p
+{
+    flex: 0 1 auto;
+    max-width: 300px;
+}
+
+@media only screen and (max-width: 1200px)
+{
+    #tools-wrapper
+    {
+        align-content: flex-start;
+    }
+
+    dl
+    {
+        margin: 0;
+        border-left: 0;
+        padding: 0;
+        max-width: unset;
+    }
+
+    #tools-wrapper p
+    {
+        max-width: unset;
+    }
+}
+
+
+
+
+dt:nth-child(n + 2)
+{
+    margin-top: 16px;
+}

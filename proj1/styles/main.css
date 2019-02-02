@@ -1,0 +1,72 @@
+html, body
+{
+    height: 100%;
+    margin: 0;
+}
+
+body
+{
+    font-family: sans-serif;
+    color: #403f4c !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+a
+{
+    text-decoration: none;
+    color: #3185fc;
+}
+
+a:hover
+{
+    text-decoration: underline;
+    color: #EA6248 !important;
+}
+
+nav a img
+{
+    margin-right: 4px;
+    flex: 1;
+}
+
+.navbar-brand
+{
+    font-family: "Garogier", serif;
+    letter-spacing: 0.5rem;
+    margin: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.spacer
+{
+    flex: 1;
+}
+
+footer
+{
+    text-align: center;
+    margin-top: auto;
+    background-color: #f8f9fa;
+    padding: 8px;
+}
+
+footer p
+{
+    font-size: smaller;
+}
+
+
+
+/*
+    primary: ea6248
+    accent1: 3185fc
+    accent2: 61c9a8
+    accent3: f9dc5c
+    light:   ffffff
+    dark:    403f4c
+ */

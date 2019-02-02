@@ -1,0 +1,49 @@
+#voik
+{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 90vh;
+}
+
+#voik p
+{
+    font-family: "Garogier", serif;
+    font-size: 30vh;
+    letter-spacing: 6rem;
+    margin: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: 1;
+}
+
+#voik p span
+{
+    letter-spacing: 0;
+}
+
+@media only screen and (max-width: 900px)
+{
+    #voik p
+    {
+        font-size: 20vw;
+        letter-spacing: 5vw;
+    }
+
+    #voik img
+    {
+        max-width: 32px;
+        max-height: 32px;
+    }
+}
+
+@font-face
+{
+    font-family: "Garogier";
+    src: url("/font/Garogier_unhinted.otf")
+}

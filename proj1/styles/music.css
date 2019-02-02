@@ -1,0 +1,67 @@
+#music-content
+{
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#tracks-wrapper
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 64px;
+}
+
+#tracks
+{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    /*min-height: 90vh;*/
+    /*height: 100%;*/
+    flex-wrap: wrap;
+    /*margin-bottom: 64px;*/
+    /*flex-shrink: 0;*/
+}
+
+#music-header
+{
+    text-align: center;
+    align-self: center;
+    margin-top: 32px;
+    font-size: x-large;
+}
+
+.music-card
+{
+    height: 256px;
+    width: 256px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    flex: 1 1 256px;
+    flex-shrink: 1;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    max-width: 256px;
+    max-height: 256px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-card p
+{
+    margin: -20px 0 3px;
+    padding: 0;
+}
+
+audio
+{
+    max-width: 200px;
+}
