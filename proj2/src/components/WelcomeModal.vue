@@ -5,9 +5,9 @@
         <img src="img/logo.svg" height="300px">
         <hr/>
         <h1>Welcome to Date Raider!</h1>
-        <p>Starting with $5,000, can you make a fortune on the market? Make careful purchases and sell at the right time
+        <p>Starting with $5,000 can you make a fortune on the market? Make careful purchases and sell at the right time
         and soon you too will be a wolf on Wall Street.</p>
-        <a href="javascript:void(0)" @click="markSeen">Let's get started!</a>
+        <a href="#" @click="markSeen">Let's get started!</a>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@
       </div>
     </div>
     <footer>
-      <p>Code hosted on <a href="https://github.com">github</a></p>
+      <p>Code hosted on <a href="https://github.com/jsh229/cs260/tree/master/proj2">github</a></p>
       <p>
         Data provided for free by <a href="https://iextrading.com/developer">IEX</a>.
         <a href="https://iextrading.com/api-exhibit-a/">View IEX’s Terms of Use</a>.
