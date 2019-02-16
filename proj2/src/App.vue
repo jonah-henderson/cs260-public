@@ -89,14 +89,32 @@ footer {
   max-width: 320px;
 }
 
+
+#side-layout {
+  display: flex;
+  flex-flow: column;
+  background-color: #6b7070;
+  width: 100%;
+  padding: 8px;
+}
+
 @media only screen and (max-width: 900px)
 {
   #main-layout {
     flex-flow: column;
   }
 
+  #side-layout {
+    padding: 0;
+  }
+
+  #side-layout h1 {
+    text-align: center;
+  }
+
   #overview {
     max-width: unset;
+    text-align: center;
   }
 }
 
@@ -105,14 +123,6 @@ footer {
   header h1 {
     display: none;
   }
-}
-
-#side-layout {
-  display: flex;
-  flex-flow: column;
-  background-color: #6b7070;
-  padding: 8px;
-  width: 100%;
 }
 
 #nav a {

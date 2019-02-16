@@ -63,6 +63,10 @@
 </script>
 
 <style scoped>
+
+  .stockCard {
+    margin: 8px;
+  }
   h1 {
     font-size: small;
   }

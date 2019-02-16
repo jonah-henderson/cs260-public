@@ -4,7 +4,9 @@
     <div class="stockCards">
       <div class="cardContainer" v-for="symbol in symbols" :key="symbol" v-if="portfolio[symbol] != null && portfolio[symbol].qty != null">
         <StockCard :symbol="symbol"></StockCard>
-        <BuySellWidget :symbol="symbol" :mode="BuySellWidgetMode.SELL"></BuySellWidget>
+        <div class="widgetWrapper">
+          <BuySellWidget :symbol="symbol" :mode="BuySellWidgetMode.SELL"></BuySellWidget>
+        </div>
       </div>
     </div>
   </div>
@@ -50,7 +52,6 @@
   .cardContainer
   {
     max-width: 400px;
-    padding: 8px;
     box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.6);
     /*margin: 8px;*/
     margin-right: 16px;
@@ -58,15 +59,17 @@
     background-color: #4c5454;
     /*flex: 0 1 auto;*/
   }
+  .widgetWrapper {
+    margin: 8px;
+  }
 
   @media only screen and (max-width: 450px)
   {
     .cardContainer {
       width: 100%;
       max-width: unset;
-      margin: 0;
-      margin-left: -8px;
       margin-bottom: 8px;
+      margin-right: 0;
       box-shadow: none;
     }
   }

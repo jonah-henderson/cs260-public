@@ -46,11 +46,9 @@
   .result {
     max-width: 900px;
     background-color: #4c5454;
-    padding: 8px;
     /*margin: 8px;*/
     border-radius: 4px;
     margin-top: 8px;
-    margin-right: 8px;
   }
 
   .search {
@@ -64,7 +62,6 @@
   @media only screen and (max-width: 450px)
   {
     .result {
-      margin: 8px 0 0 -8px;
       border-radius: 0;
     }
   }
