@@ -56,6 +56,18 @@
     margin-right: 16px;
     margin-bottom: 16px;
     background-color: #4c5454;
-    flex: 0 1 auto;
+    /*flex: 0 1 auto;*/
+  }
+
+  @media only screen and (max-width: 450px)
+  {
+    .cardContainer {
+      width: 100%;
+      max-width: unset;
+      margin: 0;
+      margin-left: -8px;
+      margin-bottom: 8px;
+      box-shadow: none;
+    }
   }
 </style>

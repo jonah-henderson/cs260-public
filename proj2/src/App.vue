@@ -81,10 +81,22 @@ footer {
   flex: 1 1 auto;
 }
 
+#overview {
+  margin: 0;
+  padding: 8px;
+  flex: 0 1 auto;
+  background-color: #4c5454;
+  max-width: 320px;
+}
+
 @media only screen and (max-width: 900px)
 {
   #main-layout {
     flex-flow: column;
+  }
+
+  #overview {
+    max-width: unset;
   }
 }
 
@@ -101,13 +113,6 @@ footer {
   background-color: #6b7070;
   padding: 8px;
   width: 100%;
-}
-
-#overview {
-  margin: 0;
-  padding: 8px;
-  flex: 0 1 auto;
-  background-color: #4c5454;
 }
 
 #nav a {
