@@ -42,7 +42,7 @@
       </div>
     </div>
     <footer>
-      <p>code on <a href="https://github.com">github</a></p>
+      <p>code on <a href="https://github.com/jsh229/cs260-public/tree/master/proj3">github</a></p>
     </footer>
   </div>
 </template>
