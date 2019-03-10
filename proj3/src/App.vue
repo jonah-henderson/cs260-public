@@ -315,6 +315,13 @@ export default class App extends Vue
     color: orange;
   }
 
+  @media only screen and (max-width: 600px)
+  {
+    header h1 {
+      font-size: 20px;
+    }
+  }
+
   /*
     purple: rgba(84, 13, 110, 1);
     salmon: rgba(238, 66, 102, 1);
