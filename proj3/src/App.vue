@@ -48,6 +48,8 @@
 </template>
 
 <script lang="ts">
+declare let luxon: any;
+
 import { Component, Vue } from 'vue-property-decorator';
 import Item from './components/Item.vue';
 import {store} from "./store";
@@ -153,7 +155,7 @@ export default class App extends Vue
 
   start = luxon.DateTime.local();
   msgShown = false;
-  timeComplete?: string = null;
+  timeComplete: string | null = null;
 
   constructor()
   {
@@ -192,14 +194,14 @@ export default class App extends Vue
 
       for (let [timePeriod, amount] of Object.entries(diffObj))
         if (amount > 0)
-          msg.push(`${Math.floor(amount)} ${timePeriod}`);
+          msg.push(`${Math.floor(amount as number)} ${timePeriod}`);
 
-      msg = msg.join(', ');
+      let msgStr = msg.join(', ');
 
       window.alert(`You won!\nIt took you ${msg}`);
 
       this.msgShown = true;
-      this.timeComplete = msg;
+      this.timeComplete = msgStr;
     }
     store.handleItemEffects();
   }
