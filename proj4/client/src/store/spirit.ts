@@ -1,10 +1,32 @@
 import axios from 'axios';
 import { ISpirit } from '../../../common/data/spirit';
+import * as socketIo from "socket.io-client";
 import { Store } from '@/store/index';
 
 export class Spirit
 {
   currentSpirit: ISpirit | null = null;
+
+  _spiritSocket?: SocketIOClient.Socket;
+
+  get spiritSocket()
+  {
+    if (this._spiritSocket)
+      return this._spiritSocket;
+
+    else
+    {
+      this._spiritSocket = socketIo.connect("192.168.1.191:3000/spirit");
+      this._spiritSocket.on('update', (data: any) => this.currentSpirit = data);
+
+      return this._spiritSocket;
+    }
+  }
+
+  setupSocket()
+  {
+    this.spiritSocket;
+  }
 
   async createSpirit(name: string)
   {
@@ -21,113 +43,24 @@ export class Spirit
     }
   }
 
-  async train(trainingId: string)
+  train(trainingId: string)
   {
-    let res = await axios.get('spirits/active/train', {params: {
-      id: trainingId
-    }});
-
-    if (res.status === 200)
-    {
-      return true;
-    }
-    else
-    {
-      console.log(res.data);
-      return false;
-    }
+    this.spiritSocket.emit('train', {trainingId});
   }
 
-  async rest()
+  rest()
   {
-    let res = await axios.get('spirits/active/rest');
-
-    if (res.status === 200)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    this.spiritSocket.emit('rest');
   }
 
-  async startSparring()
+  stopRest()
   {
-    try
-    {
-      let res = await axios.get('spirits/active/startSparring');
-
-      this.currentSpirit = res.data;
-      return true;
-    }
-    catch (err)
-    {
-      if (err.statusCode && err.data)
-      {
-        window.alert(err.data.err);
-      }
-      else
-      {
-        console.log(err);
-      }
-      return false;
-    }
-  }
-
-  async findSparringPartner(level: number)
-  {
-    try
-    {
-      let res = await axios.get('spirits/active/findSparringPartner', {params:
-          {
-            level
-          }});
-
-      if (this.currentSpirit)
-      {
-        this.currentSpirit.status = 'sparring';
-        Store.sparringMatch.getActiveMatch(this.currentSpirit._id);
-      }
-      return true;
-    }
-    catch (err)
-    {
-      if (err.statusCode && err.data)
-      {
-        if (err.statusCode !== 404)
-        {
-          window.alert(err.data.err);
-        }
-      }
-      return false;
-    }
-  }
-
-  async cancelSparring()
-  {
-    try
-    {
-      let res = await axios.get('spirits/active/cancelSparring');
-
-      if (this.currentSpirit)
-        this.currentSpirit.status = "idle";
-    }
-    catch (err)
-    {
-      if (err.statusCode && err.data)
-      {
-        window.alert(err.data.err);
-      }
-      else
-      {
-        console.log(err)
-      }
-    }
+    this.spiritSocket.emit('stopRest');
   }
 
   reset()
   {
+    this._spiritSocket = undefined;
     this.currentSpirit = null;
   }
 }

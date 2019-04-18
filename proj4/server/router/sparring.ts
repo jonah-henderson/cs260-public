@@ -8,10 +8,14 @@ router.get('/active', async (req, res) =>
 {
   let activeSpirit = await DB.Models.Spirit.findOne({player: req["player"]._id, active: true});
 
+  console.log("trying to find an active match for", activeSpirit._id);
+
   let match = await DB.Models.SparringMatch.findOne({
-    $or: [{contestant1Id: activeSpirit._id, contestant2Id: activeSpirit._id}],
+    $or: [{contestant1Id: activeSpirit._id}, {contestant2Id: activeSpirit._id}],
     status: MatchStatus.Pending
   });
+
+  console.log("match", match);
 
   if (match === null)
   {

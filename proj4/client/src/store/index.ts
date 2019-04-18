@@ -1,6 +1,6 @@
 import { Auth } from '@/store/auth';
 import { Spirit } from '@/store/spirit';
-import { SparringMatch } from '@/store/sparringMatch';
+import { Sparring } from '@/store/sparring';
 
 export class Store
 {
@@ -8,7 +8,7 @@ export class Store
   {
     auth: new Auth(),
     spirit: new Spirit(),
-    sparringMatch: new SparringMatch()
+    sparring: new Sparring()
   };
 
   static get auth()
@@ -21,15 +21,21 @@ export class Store
     return this.store.spirit;
   }
 
-  static get sparringMatch()
+  static get sparring()
   {
-    return this.store.sparringMatch;
+    return this.store.sparring;
   }
 
   static reset()
   {
     this.auth.reset();
     this.spirit.reset();
-    this.sparringMatch.reset();
+    this.sparring.reset();
+  }
+
+  static setupSockets()
+  {
+    this.spirit.setupSocket();
+    this.sparring.setupSocket();
   }
 }

@@ -1,25 +1,26 @@
 import axios from 'axios';
+import { Store } from '@/store/index';
 
 export class Auth
 {
   store =
     {
-      token: '',
+      token: false,
       login: async (username: string, password: string) =>
       {
         try
         {
-          let res = await axios.post(`tokens`,
-            {
-              username,
-              password
-            });
+          await axios.post(`tokens`,
+          {
+            username,
+            password
+          });
 
-          this.store.token = res.data;
-          axios.defaults.headers.common = {'Authorization': `Bearer: ${this.store.token}`};
-          localStorage.setItem('token', this.store.token);
+          Store.setupSockets();
+          this.store.token = true;
           return true;
-        } catch (err)
+        }
+        catch (err)
         {
           if (!err.response)
           {
@@ -47,16 +48,16 @@ export class Auth
       },
       logout: async () =>
       {
-        let res = await axios.delete(`tokens/${this.store.token}`);
-
-        if (res.status === 200)
+        try
         {
-          this.store.token = '';
-          localStorage.removeItem('token');
+          await axios.delete(`tokens`);
+
           return true;
         }
-
-        return false;
+        catch
+        {
+          return false;
+        }
       },
       reset: async() =>
       {
@@ -66,12 +67,7 @@ export class Auth
 
   constructor ()
   {
-    this.store.token = localStorage.getItem('token') || '';
-
-    if (this.store.token !== '')
-    {
-      axios.defaults.headers.common = {'Authorization': `Bearer: ${this.store.token}`};
-    }
+    this.store.token = /token/.test(document.cookie);
   }
 
 

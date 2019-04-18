@@ -1,19 +1,44 @@
 <template>
   <div v-if="spirit.currentSpirit" id="sparring">
     <div class="box">
-      <div v-if="spirit.currentSpirit.status === 'idle'">
+      <div v-if="spirit.currentSpirit.status === 'idle' && !sparring.showResult">
         <p>Look for sparring partner?</p>
-        <button type="button" @click="startSparring">Yes</button>
+        <button type="button" @click="findPartner">Yes</button>
+      </div>
+      <div v-else-if="sparring.showResult">
+        <p v-if="sparring.matchResult === 'win'">Match won!</p>
+        <p v-if="sparring.matchResult === 'draw'">Match draw!</p>
+        <p v-if="sparring.matchResult === 'loss'">Match lost!</p>
+        <div class="spirit"></div>
+        <button type="button" @click="dismissResult">OK</button>
       </div>
       <div v-else-if="spirit.currentSpirit.status === 'looking for partner'">
         <div class="spirit"></div>
         <p>Looking for a sparring partner...</p>
         <button type="button" @click="cancelSearch">Cancel</button>
       </div>
-      <div v-else-if="spirit.currentSpirit.status === 'sparring'">
-        <p>holy moly let's do some actual sparring!</p>
-        <p>This is unimplemented, but your opponent would have been</p>
-        <button type="button" @click="resetSparring">Click to reset</button>
+      <div v-else-if="sparring.activeMatch">
+        <div class="row">
+          <sparring-summary
+              :spirit="spirit.currentSpirit"
+              :player="sparring.myPlayer"
+              :battleStats="sparring.myBattleStats">
+          </sparring-summary>
+          <sparring-summary
+              :spirit="sparring.opponentSpirit"
+              :player="sparring.opponentPlayer"
+              :battleStats="sparring.opponentBattleStats"
+              :mirrored="true">
+          </sparring-summary>
+        </div>
+        <div v-if="sparring.myMove === null">
+          <sparring-actions :moves="moves" @action="sendAction"></sparring-actions>
+          <p>Attack: deals damage base on your Power.</p>
+          <p>Brace: negates damage up to your Endurance.</p>
+          <p>Boost: add bonus damage to your next attack, based on your Skill. Stacks.</p>
+          <p>Heal: regain HP based on your Life.</p>
+        </div>
+        <p v-else>Waiting for opponent's move...</p>
       </div>
       <div v-else>
         <p>You'll have to wait until you've finished what you're doing.</p>
@@ -28,49 +53,52 @@
   import { Store } from '@/store';
   import {Vue, Component} from 'vue-property-decorator';
   import { Spirit } from '@/store/spirit';
+  import { Sparring } from '@/store/sparring';
+  import SparringSummary from '@/components/SparringSummary.vue';
+  import SparringActions from '@/components/SparringActions.vue';
+  import { defaultMoves } from '../../../common/data/sparringMatch';
 
-  @Component
-  export default class Sparring extends Vue
+  @Component({
+    components: { SparringSummary, SparringActions }
+  })
+  export default class SparringView extends Vue
   {
     spirit: Spirit;
-    sparringSearchIntervalHandle: any;
+    sparring: Sparring;
+    moves = Object.values(defaultMoves);
 
     constructor()
     {
       super();
 
       this.spirit = Store.spirit;
-      Store.spirit.getActiveSpirit();
+      this.sparring = Store.sparring;
     }
 
-    startSparring()
+    async created()
     {
-      if (Store.spirit.startSparring())
-      {
-        this.sparringSearchIntervalHandle = window.setInterval(this.findPartner, 1000);
-      }
+      await Store.spirit.getActiveSpirit();
+      Store.sparring.getActiveMatch();
     }
 
-    async findPartner()
+    findPartner()
     {
-      if (this.spirit.currentSpirit)
-      {
-        if (await Store.spirit.findSparringPartner(this.spirit.currentSpirit.level))
-        {
-          window.clearInterval(this.sparringSearchIntervalHandle);
-        }
-      }
+      Store.sparring.searchForPartner();
     }
 
     cancelSearch()
     {
-      Store.spirit.cancelSparring();
-      window.clearInterval(this.sparringSearchIntervalHandle);
+      Store.sparring.cancelSearch();
     }
 
-    async resetSparring()
+    sendAction(action: string)
     {
-      Store.spirit.cancelSparring();
+      Store.sparring.sendAction(action);
+    }
+
+    dismissResult()
+    {
+      Store.sparring.closeResults();
     }
   }
 </script>
@@ -105,7 +133,6 @@
     width: 128px;
     height: 128px;
     align-self: center;
-
     image-rendering: optimizeSpeed;
     animation: bob 1s infinite alternate;
   }
@@ -121,5 +148,15 @@
     {
       transform: translateY(-4px);
     }
+  }
+
+  .row
+  {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 100%;
+    width: 640px;
   }
 </style>

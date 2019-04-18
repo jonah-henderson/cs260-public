@@ -35,6 +35,11 @@
             :colour="'green'">
         </ProgressBar>
       </div>
+      <div class="sparring">
+        <p>Sparring wins: {{ spirit.currentSpirit.sparring.wins }} |</p>
+        <p>Sparring draws: {{ spirit.currentSpirit.sparring.draws }} |</p>
+        <p>Sparring losses: {{ spirit.currentSpirit.sparring.losses }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -150,12 +155,12 @@
     width: 128px;
     display: flex;
     flex-flow: row;
+  }
 
-    span
-    {
-      display: inline-block;
-      justify-content: space-evenly;
-    }
+  .stat span
+  {
+    display: inline-block;
+    justify-content: space-evenly;
   }
 
   .spacer
@@ -169,6 +174,18 @@
     display: flex;
     flex-flow: column;
     width: 128px;
+  }
+
+  .sparring
+  {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+  }
+
+  .sparring p
+  {
+    margin-right: 8px;
   }
 
   @media only screen and (max-width: 900px)

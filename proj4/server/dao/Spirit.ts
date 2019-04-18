@@ -1,12 +1,7 @@
 import * as mongoose from 'mongoose';
 import { ISpirit } from '../../common/data/spirit';
 
-interface ISpiritServerOnly
-{
-  player: mongoose.Schema.Types.ObjectId
-}
-
-export interface SpiritDocument extends ISpirit, ISpiritServerOnly, mongoose.Document {}
+export interface SpiritDocument extends ISpirit, mongoose.Document {}
 
 export interface SpiritModel extends mongoose.Model<SpiritDocument> {}
 
@@ -32,7 +27,12 @@ export class Spirit
       status: {type: String, default: "idle"},
       active: {type: Boolean, default: true},
       energy: {type: Number, default: 10},
-      level: {type: Number, default: 1}
+      level: {type: Number, default: 1},
+      sparring: {
+        wins: {type: Number, default: 0},
+        draws: {type: Number, default: 0},
+        losses: {type: Number, default: 0}
+      }
     });
 
     schema.query.levelBetween = function (low, high)

@@ -7,8 +7,6 @@ export const publicRouter = Router();
 
 publicRouter.post('/', async (req, res) =>
 {
-  console.log("creating a new player");
-
   if (req.body.password === null || req.body.password === undefined)
   {
     res.sendStatus(400);
@@ -47,5 +45,10 @@ router.get('/me', async (req, res) =>
 
 router.get('/:id', async (req, res) =>
 {
-  res.json(DB.Models.Player.findById(req.params.id));
+  let player = await DB.Models.Player.findById(req.params.id);
+
+  if (player)
+    return res.json(player);
+  else
+    res.sendStatus(404);
 });

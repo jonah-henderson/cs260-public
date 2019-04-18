@@ -24,7 +24,6 @@ export default class Splash extends Vue
     this.$router.replace("/tutorial")
   }
 
-
 }
 </script>
 

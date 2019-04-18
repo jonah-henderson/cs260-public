@@ -48,47 +48,16 @@
 
     async train(training: ITraining)
     {
-      let success = await Store.spirit.train(training.id);
+      Store.spirit.train(training.id);
 
-      if (success)
-      {
-        let handle = window.setInterval(async () =>
-        {
-          await Store.spirit.getActiveSpirit(true);
-          if (Store.spirit.currentSpirit !== null && Store.spirit.currentSpirit.status === "idle")
-          {
-            window.clearInterval(handle);
-          }
-        }, 1000);
-
-        if (Store.spirit.currentSpirit)
-          Store.spirit.currentSpirit.status = `training (${training.display})`;
-
-        this.$router.push('/status');
-      }
-
+      this.$router.push('/status');
     }
 
     async rest()
     {
-      let success = await Store.spirit.rest();
+      Store.spirit.rest();
 
-      if (success)
-      {
-        if (Store.spirit.currentSpirit)
-          Store.spirit.currentSpirit.status = "resting";
-
-        let handle = window.setInterval(async () =>
-        {
-          await Store.spirit.getActiveSpirit(true);
-          if (Store.spirit.currentSpirit && Store.spirit.currentSpirit.status === "idle")
-          {
-            window.clearInterval(handle);
-          }
-        }, 10 * 1000);
-
-        this.$router.push('/status');
-      }
+      this.$router.push('/status');
     }
   }
 

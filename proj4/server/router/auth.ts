@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken';
 
 const router = Router();
 
-interface Token
+export interface Token
 {
   playerId: string
 }
@@ -39,15 +39,34 @@ router.post('/tokens', async (req, res) =>
 
   let token = jwt.sign(tokenData, secret, {expiresIn: 60 * 60 * 9999});
 
+  player.tokens = player.tokens.filter( token =>
+  {
+    try
+    {
+      jwt.verify(token, secret);
+      return true;
+    }
+    catch (err)
+    {
+      return false;
+    }
+  });
+
   player.tokens.push(token);
   await player.save();
 
-  res.send(token);
+  return res
+    .cookie('token', token, {maxAge: 60 * 60 * 24 * 1000})
+    .sendStatus(201);
+
 });
 
-router.delete('/tokens/:token', async (req, res) =>
+router.delete('/tokens', async (req, res) =>
 {
-  let token = req.params.token;
+  let token = req.cookies['token'];
+
+  if (!token)
+    return res.sendStatus(401);
 
   try
   {
@@ -82,29 +101,26 @@ router.delete('/tokens/:token', async (req, res) =>
 
 export async function checkToken(req: Request, res: Response, next)
 {
-  let authHeader = req.headers['authorization'];
-
-  if (authHeader === null || authHeader === undefined)
-  {
-    res.sendStatus(401);
-    return;
-  }
-
-  let token = authHeader.split(' ')[1];
+  let token = req.cookies['token'];
 
   try
   {
     let decodedToken = (jwt.verify(token, process.env['NS_TOKEN_SECRET']) as Token);
 
-    req["player"] = await DB.Models.Player.findById(decodedToken.playerId);
+    let player = await DB.Models.Player.findById(decodedToken.playerId);
+
+    if (player === null)
+      return res.sendStatus(403);
+
+    req["player"] = player;
 
     next();
-
-  } catch (err)
+  }
+  catch (err)
   {
+    console.log(err);
     res.sendStatus(401);
   }
-
 }
 
 export default router;

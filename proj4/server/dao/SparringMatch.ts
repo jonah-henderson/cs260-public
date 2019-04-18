@@ -19,19 +19,19 @@ export class SparringMatch
       contestant2Id: {type: mongoose.SchemaTypes.ObjectId, ref: "Spirit"},
       contestant1PendingMove: String,
       contestant2PendingMove: String,
-      contestant1NextMove: String,
-      contestant2NextMove: String,
       contestant1Stats:
       {
         atk: Number,
         def: Number,
-        hp:  Number
+        hp:  Number,
+        skill: Number,
       },
       contestant2Stats:
       {
         atk: Number,
         def: Number,
-        hp:  Number
+        hp:  Number,
+        skill: Number,
       },
       status: String,
       victor: {type: mongoose.SchemaTypes.ObjectId, ref: "Spirit"}

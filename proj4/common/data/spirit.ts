@@ -26,6 +26,7 @@ export enum Stat
 
 export interface ISpirit
 {
+  _id: any,
   name: string,
   created: Date,
   stats: {
@@ -34,12 +35,18 @@ export interface ISpirit
     endurance: number,
     life: number
   },
+  player: any,
   level: number,
   element: Element,
   class: Class[],
   energy: number,
   status: string,
   active: boolean
+  sparring: {
+    wins: number,
+    draws: number,
+    losses: number
+  }
 }
 
 export const classNames =
@@ -47,7 +54,7 @@ export const classNames =
 
   // Tier 1
   "Power":      "Fighter",
-  "Skill":      "Ensnarer",
+  "Skill":      "Invoker",
   "Endurance":  "Defender",
   "Life":       "Healer",
 

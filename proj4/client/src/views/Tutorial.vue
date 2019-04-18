@@ -37,7 +37,7 @@
           <p>Training {{ spiritName }}'s <span class="power">Power</span> will help it become more capable of defending
              itself and you</p>
           <p>Training its <span class="skill">Skill</span> will help it learn how to overcome challenges, as well as
-             baffle and outmanoeuvre foes.</p>
+             focus and boost its own power.</p>
           <p>Training its <span class="endurance">Endurance</span> will allow it to reduce damage to itself and to
              travel further before needing a rest.</p>
           <p>Training its <span class="life">Life</span> increases the amount of punishment it can take before it is

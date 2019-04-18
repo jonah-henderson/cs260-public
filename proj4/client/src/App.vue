@@ -1,14 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav" v-if="auth.token && !inTutorial">
-      <img src="img/logo.svg">
-      <router-link to="/status">Status</router-link>
-      <router-link to="/sparring">Sparring</router-link>
-      <router-link to="/training">Training</router-link>
-      <router-link to="/coming-soon">Exploration</router-link>
-      <a href="javascript:void(0)" @click="logout">Logout</a>
+    <div id="content">
+      <div id="nav" v-if="auth.token && !inTutorial">
+        <img src="img/logo.svg">
+        <router-link to="/status">Status</router-link>
+        <router-link to="/sparring">Sparring</router-link>
+        <router-link to="/training">Training</router-link>
+        <router-link to="/coming-soon">Exploration</router-link>
+        <a href="javascript:void(0)" @click="logout">Logout</a>
+      </div>
+      <router-view/>
     </div>
-    <router-view/>
+    <footer>
+      <p>code on <a target="_blank" href="https://github.com/jsh229/cs260-public/tree/master/proj4">github</a></p>
+    </footer>
   </div>
 </template>
 
@@ -17,17 +22,20 @@
   import { Store } from '@/store';
   import axios from 'axios';
   import { Route } from 'vue-router';
+  import * as socketIo from 'socket.io-client';
 
   @Component
   export default class App extends Vue
   {
     private auth = Store.auth;
     private inTutorial = false;
+    private socket?: SocketIOClient.Socket;
 
     constructor()
     {
       super();
       axios.defaults.baseURL = `http://192.168.1.191:3000/nocturne-spirit/api/`;
+      axios.defaults.withCredentials = true;
     }
 
     created()
@@ -35,6 +43,10 @@
       if (!this.auth.token)
       {
         this.$router.replace("/");
+      }
+      else
+      {
+        Store.setupSockets();
       }
     }
 
@@ -75,7 +87,23 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-flow: column;
+    background-image: url('../public/img/purplebrick.png');
+
+  }
+
+  footer
+  {
+    background-color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    color: white;
+  }
+
+  #content
+  {
+    display: flex;
     flex-flow: row;
+    height: 100%;
   }
 
   #nav {
