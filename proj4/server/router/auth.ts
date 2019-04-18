@@ -84,6 +84,7 @@ router.delete('/tokens', async (req, res) =>
       player.tokens.splice(player.tokens.indexOf(token), 1);
       await player.save();
 
+      res.clearCookie("token");
       res.sendStatus(200);
       return;
     }

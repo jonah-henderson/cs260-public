@@ -52,6 +52,8 @@ export class Auth
         {
           await axios.delete(`tokens`);
 
+          this.store.token = false;
+
           return true;
         }
         catch
