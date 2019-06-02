@@ -19,7 +19,7 @@
     "id": "dwarvenEngineers",
     "description": {
       "name": "Hire dwarven engineers",
-      "effect": "These fellows kick starts your research by developing cutting edge tech",
+      "effect": "These fellows kick start your research by developing cutting edge tech",
       "purchased": "Dwarven engineers"
     },
     "prereqs": {
@@ -56,7 +56,7 @@
     "id": "clockworkFactory",
     "description": {
       "name": "Automate clockwork forges",
-      "effect": "Increases forge output by 5",
+      "effect": "Increases forge output by a factor of 5",
       "purchased": "Clockwork factories"
     },
     "prereqs": {

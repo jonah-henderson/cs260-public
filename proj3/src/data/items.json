@@ -325,7 +325,7 @@
     "id": "vendor",
     "description": {
       "name": "Vendor",
-      "description": "Automatically sells your goods"
+      "detail": "Automatically sells your goods"
     },
     "cost": {
       "gold": 100
@@ -349,7 +349,7 @@
     "id": "goldDigger",
     "description": {
       "name": "Autonomous gold excavator",
-      "description": "Cut to the chase. Mine gold directly"
+      "detail": "Cut to the chase. Mine gold directly"
     },
     "cost": {
       "iron": 2000,

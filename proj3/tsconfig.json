@@ -28,7 +28,7 @@
     ]
   },
   "include": [
-    "src/data/*json",
+    "src/data/*.json",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
